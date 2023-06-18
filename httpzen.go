@@ -5,7 +5,7 @@ type (
 	Api interface {
 		Run(ip string, port uint, mode string) error
 		AppendModule(mod Module)
-		AppendPreHandlers(string, Action) // TODO: add handler base on order. study it!
+		AppendMiddleware(string, Action) // TODO: add middleware base on order. study it!
 		GetRoute(url, method string) *RequestDefinition
 		SetCors(cors []string)
 		// TODO: add crash report handler with mode( dev or etc)
