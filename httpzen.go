@@ -31,6 +31,7 @@ type (
 	Module interface {
 		GetRequestHandlers() []*RequestDefinition
 		GetBaseURL() string
+		GetTag() Tag
 	}
 
 	// The Request interface defines the methods available to an HTTP request handler.
