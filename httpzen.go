@@ -9,6 +9,14 @@ type (
 		GetRoute(url, method string) *RequestDefinition
 		SetCors(cors []string)
 		// TODO: add crash report handler with mode( dev or etc)
+
+		// OpenAPI
+		SetExternalDocs(ExternalDocs)
+		SetInfo(Info)
+		SetContact(Contact)
+		SetServers([]Server)
+		EnableOpenApi(route string) error
+		SetErrors([]string)
 	}
 
 	// The Module interface defines the methods required to handle a group of related request handlers.
@@ -53,4 +61,41 @@ type (
 
 	// HTTPMethod is a string representing an HTTP method (GET, POST, DELETE, etc.).
 	HTTPMethod string
+
+	Info struct {
+		Version     string
+		Description string
+		Title       string
+	}
+
+	Contact struct {
+		Name  string
+		Email string
+		URL   string
+	}
+
+	Server struct {
+		URL         string
+		Description string
+	}
+
+	Tag struct {
+		Name         string
+		Description  string
+		ExternalDocs *ExternalDocs
+	}
+
+	// The name is plural by open api definition
+	ExternalDocs struct {
+		Description string
+		URL         string
+	}
+
+	NameGetter interface {
+		GetName() string
+	}
+
+	DescriptionGetter interface {
+		GetDescription() string
+	}
 )
