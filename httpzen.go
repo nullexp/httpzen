@@ -1,8 +1,11 @@
 package httpzen
 
 import (
+	"io"
 	"net/http"
 	"net/http/httptest"
+	"net/textproto"
+	"time"
 )
 
 type (
@@ -49,6 +52,9 @@ type (
 		GetDto() (interface{}, bool)
 		MustGetDto() interface{}
 		Negotiate(stausCode int, err error, Dto interface{})
+		RangeFile(status int, err error, file SeekerFile)
+		WriteFile(status int, err error, file File)
+		ReturnMultpartMixed(status int, err error, out ...Multipart)
 	}
 
 	// The Verifier interface defines the method required to validate input data.
@@ -106,5 +112,53 @@ type (
 
 	DescriptionGetter interface {
 		GetDescription() string
+	}
+
+	MultipartDefinition interface {
+		IsOptional() bool
+		GetPartName() string
+		IsSingle() bool
+		GetObject() interface{}
+	}
+
+	MultipartFileDefinition interface {
+		MultipartDefinition
+		Verify(FileHeader) error
+	}
+
+	MultipartValueDefinition interface {
+		MultipartDefinition
+		Verify() error
+	}
+
+	Multipart interface {
+		io.ReadCloser
+		GetPartName() string
+		GetMimeType() string
+	}
+
+	FileMultiaprt interface {
+		File
+		Multipart
+	}
+
+	FileHeader interface {
+		GetHeader() textproto.MIMEHeader
+		GetSize() int64
+		GetFilename() string
+		OpenFile() (File, error)
+	}
+
+	File interface {
+		io.Reader
+		io.Closer
+		GetFilename() string
+		GetMimeType() string
+		GetLastModifiedDate() time.Time
+	}
+
+	SeekerFile interface {
+		io.Seeker
+		File
 	}
 )
