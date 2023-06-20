@@ -1,5 +1,10 @@
 package httpzen
 
+import (
+	"net/http"
+	"net/http/httptest"
+)
+
 type (
 	// The Api interface defines the methods required to run an HTTP server and handle incoming requests.
 	Api interface {
@@ -9,6 +14,9 @@ type (
 		GetRoute(url, method string) *RequestDefinition
 		SetCors(cors []string)
 		// TODO: add crash report handler with mode( dev or etc)
+
+		// For testing
+		TestHandle(*httptest.ResponseRecorder, *http.Request) error
 
 		// OpenAPI
 		SetExternalDocs(ExternalDocs)
