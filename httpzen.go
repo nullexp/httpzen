@@ -72,6 +72,13 @@ type (
 		Dto     Verifier
 		Handler Action
 		Method  HTTPMethod
+
+		// For open api
+		Summary             string
+		Description         string
+		OperationID         string // Tools use this UNIQUE id to idenitfy the action example: GetUserByID,GetUsers, ....
+		Deprecated          bool   // Set true if this definition is deprecated
+		ResponseDefinitions []ResponseDefinition
 	}
 
 	// HTTPMethod is a string representing an HTTP method (GET, POST, DELETE, etc.).
@@ -160,5 +167,10 @@ type (
 	SeekerFile interface {
 		io.Seeker
 		File
+	}
+	ResponseDefinition struct {
+		Description string // For example: success operation
+		Status      int
+		Dto         any // Might be basic dto,
 	}
 )
