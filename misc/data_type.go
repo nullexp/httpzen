@@ -1,4 +1,4 @@
-package httpzen
+package misc
 
 import (
 	b64 "encoding/base64"
@@ -15,20 +15,31 @@ type DataType int
 
 const (
 	DataTypeBoolean DataType = iota + 1
+
 	DataTypeString
+
 	DataTypeDouble
+
 	DataTypeInteger
+
 	DataTypeLong
+
 	DataTypeTime
+
 	DataTypeBase64
+
 	DataTypeSearch
+
 	DataTypePage
+
 	DataTypeStaticPage
+
 	DataTypeUInteger
+
 	DataTypeULong
 )
 
-// ParseBoolean will try parsing given string to related boolean type
+// ParseBoolean will try parsing given string to coresponsing boolean type
 
 func ParseBoolean(str string) (bool, bool) {
 	switch str {
@@ -70,7 +81,7 @@ func ParseBoolean(str string) (bool, bool) {
 	return false, false
 }
 
-// ParseDouble will try parsing given string to related double type
+// ParseDouble will try parsing given string to coresponsing double type
 
 func ParseDouble(str string) (float64, bool) {
 	s, err := strconv.ParseFloat(str, 64)
@@ -78,7 +89,7 @@ func ParseDouble(str string) (float64, bool) {
 	return s, err == nil
 }
 
-// ParseInteger will try parsing given string to related integer type
+// ParseInteger will try parsing given string to coresponsing integer type
 
 func ParseInteger(str string) (int, bool) {
 	s, err := strconv.Atoi(str)
@@ -86,7 +97,7 @@ func ParseInteger(str string) (int, bool) {
 	return s, err == nil
 }
 
-// ParseLong will try parsing given string to related int64 type
+// ParseLong will try parsing given string to coresponsing int64 type
 
 func ParseLong(str string) (int64, bool) {
 	rs, err := strconv.ParseInt(str, 10, 64)
@@ -94,7 +105,7 @@ func ParseLong(str string) (int64, bool) {
 	return rs, err == nil
 }
 
-// ParseTime will try parsing given string to related time type
+// ParseTime will try parsing given string to coresponsing time type
 
 func ParseTime(str string) (*time.Time, bool) {
 	rs, valid := ParseLong(str)
@@ -108,7 +119,7 @@ func ParseTime(str string) (*time.Time, bool) {
 	return &v, true
 }
 
-// ParseBase64 will try parsing given string to related string type
+// ParseBase64 will try parsing given string to coresponsing string type
 
 func ParseBase64(str string) (string, bool) {
 	rs, err := b64.StdEncoding.DecodeString(str)
@@ -116,7 +127,7 @@ func ParseBase64(str string) (string, bool) {
 	return string(rs), err == nil
 }
 
-// ParseInteger will try parsing given string to related uint type
+// ParseInteger will try parsing given string to coresponsing uint type
 
 func ParseUInteger(str string) (uint, bool) {
 	s, err := strconv.ParseUint(str, 10, 32)
@@ -124,7 +135,7 @@ func ParseUInteger(str string) (uint, bool) {
 	return uint(s), err == nil
 }
 
-// ParseULong will try parsing given string to related uint64 type
+// ParseULong will try parsing given string to coresponsing uint64 type
 
 func ParseULong(str string) (uint64, bool) {
 	rs, err := strconv.ParseUint(str, 10, 64)

@@ -1,4 +1,4 @@
-package httpzen
+package misc
 
 type QueryOperator string
 
