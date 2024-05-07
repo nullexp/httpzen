@@ -54,7 +54,24 @@ type (
 		Negotiate(stausCode int, err error, Dto interface{})
 		RangeFile(status int, err error, file SeekerFile)
 		WriteFile(status int, err error, file File)
-		ReturnMultpartMixed(status int, err error, out ...Multipart)
+		ReturnMultipartMixed(status int, err error, out ...Multipart)
+
+		SetFile(key string, f FileHeader)
+		SetFiles(key string, f []FileHeader)
+		GetDTO() (interface{}, bool)
+		MustGetDTO() interface{}
+		GetFile(partName string) (FileHeader, bool)
+		MustGetFile(partName string) FileHeader
+		GetFiles(partName string) ([]FileHeader, bool)
+		MustGetFiles(partName string) []FileHeader
+		GetPagination() (Pagination, bool)
+		GetCursorPagination() (CursorPagination, bool)
+		GetCaller() (Caller, bool)
+		MustGetCaller() Caller
+		GetSort() []Sort
+		GetQuery() []Query
+		GetDefaultQuery() (string, bool)
+		IsAndQuery() bool
 	}
 
 	// The Verifier interface defines the method required to validate input data.
